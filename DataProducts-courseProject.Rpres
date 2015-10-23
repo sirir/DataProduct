@@ -1,0 +1,54 @@
+DataProducts-courseProject
+========================================================
+author: Raghav
+date: 22 Oct, 2015
+transition: rotate
+
+Problem Statement
+========================================================
+
+This R presentation is developed as part of course project using shiny app.
+
+
+The id designed to predict the MPG against the below variables.
+
+
+- Horsepower
+
+- Cylinders count
+
+- Weight (in lbs)
+
+DataSet Used
+========================================================
+mtcars dataset is used for analysing the characteristics of the MPG against Horsepower, # cylinders, weight of the car. A summary of the data set is given below.
+
+```{r}
+data(mtcars);
+summary(mtcars)
+```
+
+Methodology used for prediction
+========================================================
+Have applied linear modeling on mtcars dataset with MGS as predictor and horsepower, # cylinders, weight as variables. 
+- The range of 'Horsepower' is 200 - 500 Hp, which can be choosen using slide bar
+- The # of cyclinders are limited to 4,6,8,10 for analysis, which can be choosen from drop down
+- The range of Weight of car is from 2K to 10 K Lbs, which can be choosen usign select box. The weight, reactive() is used to convert the user input weight into the units used by the model, lb/1000. A linear model function is used to predict the mpg based on the three variables input by the user
+
+```{r, echo=FALSE}
+modFit <- lm(mpg ~ hp+cyl+wt, data = mtcars)
+modFit$coefficients
+```
+
+```{r, echo=TRUE}
+mpg <- function(hp, cyl, wt) {
+  modFit$coefficients[1] + modFit$coefficients[2] * hp + 
+    modFit$coefficients[3] * cyl + modFit$coefficients[4] * wt
+}
+```
+
+Application details
+=====================
+
+![DataProducts-courseProjec](shiny_app.png)
+
